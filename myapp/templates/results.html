@@ -29,10 +29,17 @@
             color: white;
             margin-bottom: 20px;
         }
+        .images{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            
+        }
         img {
             max-width: 90%;
             height:auto;
             border-radius: 10px;
+            margin:5px;
         }
         a {
             color: white;
@@ -54,9 +61,11 @@
 <body>
     <div class="container">
       <h1>Results</h1>
+      <div class="images">
       {% for plot_url in plot_urls %}
          <img src="{{ plot_url }}" alt="Generated Plot">
         {% endfor %}
+      </div>
       <a href="{{ csv_url }}">Download CSV</a>  
     </div>
 </body>
