@@ -15,7 +15,6 @@
             align-items: center;
             background: url('/static/background_clouds.jpg') no-repeat center center fixed;
             background-size: cover;
-            
         }
         .container {
             text-align: center;
@@ -29,53 +28,55 @@
             color: white;
             margin-bottom: 20px;
         }
-        .images.one img {
-            grid-column: 2; 
-        }
-        .images.two img:nth-child(1) {
-            grid-column: 1; 
-        }
-        .images.two img:nth-child(2) {
-            grid-column: 3;
-        }
-        .images.three img:nth-child(1) {
-            grid-column: 1; 
-        }
-        .images.three img:nth-child(2) {
-            grid-column: 2; 
-        }
-        .images.three img:nth-child(3) {
-            grid-column: 4;
-        }
-        .images.four img {
-            grid-column: span 1; 
-        }
-        .images.five img {
-            grid-column: span 1; 
-        }
-        .images.six img {
-            grid-column: span 1; 
+        /* Grid layout for images: 4 images per row */
+        .images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);  /* 4 images per row */
+            grid-gap: 10px;
+            margin-bottom: 20px;
         }
         img {
-            width:calc(33.33%-10px);
-            height:auto;
-            max-height:200px;
-            object-fit:contain;
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
             border-radius: 10px;
-            margin:5px;
         }
-        a {
+        .download-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .download-links a {
             color: white;
             text-decoration: none;
             font-size: 1.2em;
-            margin-top: 20px;
             display: inline-block;
             padding: 10px 20px;
             border: 1px solid white;
             border-radius: 5px;
+            margin: 5px;
             transition: background-color 0.3s;
         }
-        a:hover {
+        .download-links a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Styling for the Download CSV link */
+        .download-csv {
+            margin-top: 20px;
+        }
+        .download-csv a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        .download-csv a:hover {
             background-color: white;
             color: black;
         }
@@ -83,13 +84,24 @@
 </head>
 <body>
     <div class="container">
-      <h1>Results</h1>
-      <div class="images {% if plot_urls|length == 1 %}one{% elif plot_urls|length == 2 %}two{% elif plot_urls|length == 3 %}three{% elif plot_urls|length == 4 %}four{% elif plot_urls|length == 5 %}five{% elif plot_urls|length >= 6 %}six{% endif %}">
-      {% for plot_url in plot_urls %}
-         <img src="{{ plot_url }}" alt="Generated Plot">
-        {% endfor %}
-      </div>
-      <a href="{{ csv_url }}">Download CSV</a>  
+        <h1>Results</h1>
+
+        <!-- Images grid with download links -->
+        <div class="images">
+            {% for plot_url, download_url in plot_data %}
+                <div>
+                    <img src="{{ plot_url }}" alt="Generated Plot">
+                    <div class="download-links">
+                        <a href="{{ download_url }}">Download Image</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Styled Download CSV link -->
+        <div class="download-csv">
+            <a href="{{ csv_url }}">Download CSV</a>  
+        </div>
     </div>
 </body>
 </html>

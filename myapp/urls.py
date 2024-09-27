@@ -10,6 +10,8 @@ urlpatterns = [
     path('select_graph_type/', views.select_graph_type, name='select_graph_type'),
     path('generate_graph/', views.generate_graph, name='generate_graph'),
     path('download/<str:filename>/', views.download_file, name='download_file'),
+    path('download_image/<str:filename>/', views.download_image, name='download_image'),
+    path('download_file/<str:filename>/', views.download_file, name='download_file'),
 ]
 
 # Serve media files during development

@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,FileResponse
 from django.urls import reverse
 from .forms import UploadFileForm, SelectColumnForm,GraphTypeForm
 from windrose import WindroseAxes
@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import calendar
 import os
-from django.conf import settings
+from django.conf import settings 
 import matplotlib
 matplotlib.use('Agg')  
 plt.ioff()
@@ -276,13 +276,24 @@ def results(request):
     plot_paths = request.session.get('plot_paths', [])
     csv_path = request.session.get('csv_path', '')
     plot_urls=[]
+    download_urls=[]
 
     if plot_paths:
-        plot_urls=[path.replace(settings.MEDIA_ROOT,settings.MEDIA_URL)for path in plot_paths]
+        for path in plot_paths:
+            plot_url = path.replace(settings.MEDIA_ROOT, settings.MEDIA_URL)
+            download_url = reverse('download_image', kwargs={'filename': os.path.basename(path)})
+            plot_urls.append(plot_url)
+            download_urls.append(download_url)
 
     csv_url=csv_path.replace(settings.MEDIA_ROOT,settings.MEDIA_URL)if csv_path else None
+    download_csv_url = reverse('download_file', kwargs={'filename': os.path.basename(csv_path)}) if csv_path else None
 
-    return render(request, 'results.html', {'plot_urls': plot_urls, 'csv_url': csv_url})
+    context = {
+        'plot_data': zip(plot_urls, download_urls), 
+        'csv_url': csv_url,
+        'download_csv_url': download_csv_url
+    }
+    return render(request, 'results.html', context)
 
 def download_file(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT, 'csv_outputs', filename)
@@ -291,5 +302,14 @@ def download_file(request, filename):
             response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
             response['Content-Disposition'] = f'inline; filename={os.path.basename(file_path)}'
             return response
+    else:
+        return HttpResponse("File not found.")
+    
+def download_image(request, filename):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'plots', filename)
+    if os.path.exists(file_path):
+        response = FileResponse(open(file_path, 'rb'), content_type='image/png')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return response
     else:
         return HttpResponse("File not found.")
