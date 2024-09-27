@@ -54,7 +54,9 @@
 <body>
     <div class="container">
       <h1>Results</h1>
-      <img src="{{ plot_url }}" alt="Plot">
+      {% for plot_url in plot_urls %}
+         <img src="{{ plot_url }}" alt="Generated Plot">
+        {% endfor %}
       <a href="{{ csv_url }}">Download CSV</a>  
     </div>
 </body>
