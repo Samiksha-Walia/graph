@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload CSV File</title>
+  <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+      }
+      .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
+          color: white;
+          padding: 15px;
+          position: absolute; /* Keep it fixed at the top */
+          width: 100%;
+          z-index: 1000; /* Ensure it sits above other elements */
+      }
+      .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 16px;
+          transition: color 0.3s, text-decoration 0.3s;
+      }
+      .navbar a:hover {
+          color: #4CAF50; /* Change color on hover */
+          text-decoration: solid;
+      }
+      .main-title {
+          font-size: 24px;
+          font-weight: bold;
+      }
+      .upload-container {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: url(../static/background_clouds.jpg) no-repeat center center fixed;
+          background-size: cover;
+          color: white;
+      }
+      .form-box {
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 40px;
+          border-radius: 10px;
+          text-align: center;
+          max-width: 400px;
+          width: 100%;
+      }
+      form[method="post"] {
+          margin: 20px 0;
+          padding: 10px;
+      }
+      button[type="submit"] {
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s;
+      }
+      button[type="submit"]:hover {
+          background-color: #45a049;
+      }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="main-title">My Application</div>
+    <div>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </div>
+  
+  <div class="upload-container">
+    <div class="form-box">
+      <img src="/static/logo_imd.png" height="300px" alt="IMD Logo" class="logo" style="border-radius: 10px;">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <small>Only CSV files are allowed. Maximum file size: 5MB.</small>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

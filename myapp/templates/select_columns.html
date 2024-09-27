@@ -1,0 +1,67 @@
+<!-- myapp/templates/select_columns.html -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Columns to Plot</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: url('/static/background_clouds.jpg') no-repeat center center fixed;
+          background-size: cover;
+          
+      }
+      .container {
+          text-align: center;
+          background-color: rgba(0, 0, 0, 0.6);
+          padding: 40px;
+          border-radius: 10px;
+          width: 80%;
+          max-width: 600px;
+      }
+      h1 {
+          color: white;
+          margin-bottom: 20px;
+      }
+      label {
+          color: white;
+          display: block;
+          margin-bottom: 10px;
+      }
+      form[method="POST"]{
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+          border: none;
+      }
+      button[type="submit"] {
+          padding: 15px 30px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+      .logo{
+          width : 80%;
+      }
+  </style>
+</head>
+<body>
+  <div class ="container">
+    <img src="/static/logo_imd.png" alt="Logo" class="Logo" style="border-radius: 10px;">
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generate Plots</button>
+  </form>
+</div>
+</body>
+</html>
