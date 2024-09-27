@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .forms import UploadFileForm, SelectColumnForm,GraphTypeForm
-from windrose import WindroseWxes
+from windrose import WindroseAxes
 from matplotlib.cm import viridis
 import seaborn as sns
 import pandas as pd
@@ -40,7 +40,7 @@ def generate_graph(request):
     dataframe = pd.read_csv(file_path)
     dataframe['DATETIME'] = pd.to_datetime(dataframe['DATE'] + ' ' + dataframe['TIME(UTC)'])
 
-    if graph_type == 'b':
+    if graph_type == 'Yearly_mean_for_temp':
         # Yearly mean for temperature
         dataframe = dataframe.dropna(subset=['TEMP(C)'])
         dataframe['YearMonth'] = dataframe['DATETIME'].dt.to_period('M')
@@ -54,7 +54,7 @@ def generate_graph(request):
         plt.title('Monthly Mean Temperature Over Time')
         plt.tight_layout()
 
-    elif graph_type == 'c':
+    elif graph_type == 'Yearly_mean_for_max_daily_temp':
         # Yearly mean for max daily temperature
         dataframe = dataframe.dropna(subset=['TEMP_MAX(C)'])
         dataframe.set_index('DATETIME', inplace=True)
@@ -68,7 +68,7 @@ def generate_graph(request):
         plt.ylabel('Mean Maximum Temperature (°C)')
         plt.grid(True)
 
-    elif graph_type == 'd':
+    elif graph_type == 'daily_max_temp':
         # Daily maximum temperature
         dataframe['YEAR'] = dataframe['DATETIME'].dt.year
         dataframe['MONTH'] = dataframe['DATETIME'].dt.month
@@ -99,7 +99,7 @@ def generate_graph(request):
             plt.savefig(f'daily_max_temperatures_{year}.png')
             plt.close(fig)
 
-    elif graph_type == 'e':
+    elif graph_type == 'wind_rose':
         # Wind rose graph
         dataframe['Month'] = dataframe['DATETIME'].dt.month
         wind_speed = dataframe['WIND_SPEED(kt)']
@@ -204,7 +204,7 @@ def upload_file(request):
             dataframe, columns = process_file(file_path)
             request.session['file_path'] = file_path
             request.session['columns'] = columns
-            return redirect('select_columns')
+            return redirect('select_graph_type')
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
@@ -236,7 +236,10 @@ def results(request):
 
 def download_file(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT, 'csv_outputs', filename)
-    with open(file_path, 'rb') as fh:
-        response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-        response['Content-Disposition'] = f'inline; filename={os.path.basename(file_path)}'
-        return response
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = f'inline; filename={os.path.basename(file_path)}'
+            return response
+    else:
+        return HttpResponse("File not found.")
