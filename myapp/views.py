@@ -11,8 +11,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import calendar
 import os
-
 from django.conf import settings
+import matplotlib
+matplotlib.use('Agg')  
+plt.ioff()
 
 def process_file(file_path):
     dataframe = pd.read_csv(file_path)
