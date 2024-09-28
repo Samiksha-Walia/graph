@@ -313,3 +313,6 @@ def download_image(request, filename):
         return response
     else:
         return HttpResponse("File not found.")
+
+def about(request):
+    return render(request, 'about.html')
