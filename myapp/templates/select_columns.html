@@ -16,6 +16,37 @@
           background-size: cover;
           
       }
+      .navbar {
+        display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
+            color: white;
+            padding: 15px;
+            position: fixed; /* Changed to fixed */
+            top: 0; /* Positioned at the top */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Ensure it sits above other elements */
+    }
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+        transition: color 0.3s, text-decoration 0.3s;
+    }
+    .navbar a:hover {
+        background-color: white;  
+        color: black;             
+        padding: 5px 10px;        
+        border-radius: 5px;       
+        text-decoration: none;
+    }
+    .main-title {
+        font-size: 24px;
+        font-weight: bold;
+    }
       .container {
           text-align: center;
           background-color: rgba(0, 0, 0, 0.6);
@@ -52,9 +83,20 @@
       .logo{
           width : 80%;
       }
+      button[type="submit"]:hover {
+        background-color: #45a049;
+    }
   </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="main-title">My Application</div>
+        <div>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
   <div class ="container">
     <img src="/static/logo_imd.png" alt="Logo" class="Logo" style="border-radius: 10px;">
     <form method="post">

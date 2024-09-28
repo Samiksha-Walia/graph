@@ -6,10 +6,14 @@
   <title>Upload CSV File</title>
   <style>
       body, html {
-          height: 100%;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url('/static/background_clouds.jpg') no-repeat center center fixed;
+        background-size: cover;
       }
       .navbar {
           display: flex;
@@ -18,9 +22,11 @@
           background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
           color: white;
           padding: 15px;
-          position: absolute; /* Keep it fixed at the top */
-          width: 100%;
-          z-index: 1000; /* Ensure it sits above other elements */
+          position: fixed; /* Change from absolute to fixed */
+          top: 0; 
+          left:0;
+          right :0;
+          z-index: 1000; 
       }
       .navbar a {
           color: white;
@@ -30,8 +36,11 @@
           transition: color 0.3s, text-decoration 0.3s;
       }
       .navbar a:hover {
-          color: #4CAF50; /* Change color on hover */
-          text-decoration: solid;
+        background-color: white;  
+        color: black;             
+        padding: 5px 10px;        
+        border-radius: 5px;       
+        text-decoration: none;
       }
       .main-title {
           font-size: 24px;
@@ -45,6 +54,7 @@
           background: url(../static/background_clouds.jpg) no-repeat center center fixed;
           background-size: cover;
           color: white;
+          padding-top: 80px; /* Add space to account for the fixed navbar */
       }
       .form-box {
           background-color: rgba(0, 0, 0, 0.7);

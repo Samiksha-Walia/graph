@@ -1,4 +1,5 @@
-<!-- myapp/templates/select_graph_type.html -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,15 +15,47 @@
             align-items: center;
             background: url('/static/background_clouds.jpg') no-repeat center center fixed;
             background-size: cover;
-            
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
+            color: white;
+            padding: 15px;
+            position: fixed; /* Keeps navbar fixed at the top */
+            top: 0; /* Ensures it's positioned at the top */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Keeps the navbar above other content */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: white;  
+            color: black;             
+            padding: 5px 10px;        
+            border-radius: 5px;       
+            text-decoration: none;
+        }
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
         }
         .container {
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.6); /* Slight transparency for the background */
             padding: 40px;
             border-radius: 10px;
             width: 80%;
             max-width: 600px;
+            margin-top: 100px; /* Adjust margin to create space below navbar */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
         }
         h3 {
             color: white;
@@ -33,7 +66,7 @@
             display: block;
             margin-bottom: 10px;
         }
-        form[method="POST"]{
+        form[method="POST"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -48,21 +81,67 @@
             cursor: pointer;
             border-radius: 5px;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
-        .logo{
-            width : 80%;
+        button[type="submit"]:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+        }
+        .logo {
+            width: 80%; /* Make logo responsive */
+            max-width: 300px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        /* Styling for the radio buttons */
+        .radio {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .radio label {
+            margin-left: 10px; /* Add spacing between radio and label */
+        }
+        input[type="radio"] {
+            accent-color: #4CAF50; /* Customize the color of the radio buttons */
+            width: 18px;
+            height: 18px;
+        }
+        .radio-group {
+            text-align: left;
+            margin-bottom: 20px;
         }
     </style>
-  </head>
-  <body>
-    <div class ="container">
-      <img src="/static/logo_imd.png" alt="Logo" class="Logo" style="border-radius: 10px;">
-      <form method="post">
-        {% csrf_token %}
-        <h3>Select the type of graph you want to generate:</h3>
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-  </div>
-  </body>
-  </html>
+</head>
+<body>
+    <div class="navbar">
+        <div class="main-title">My Application</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <img src="/static/logo_imd.png" alt="Logo" class="logo">
+        <form method="post">
+            {% csrf_token %}
+            <h3>Select the type of graph you want to generate:</h3>
+            
+            <div class="radio-group">
+                <!-- Render the ChoiceField (RadioSelect) -->
+                {% for radio in form.graph_type %}
+                <div class="radio">
+                    {{ radio.tag }}
+                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

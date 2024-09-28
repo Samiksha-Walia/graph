@@ -16,6 +16,37 @@
             background: url('/static/background_clouds.jpg') no-repeat center center fixed;
             background-size: cover;
         }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
+            color: white;
+            padding: 15px;
+            position: fixed; /* Changed to fixed */
+            top: 0; /* Positioned at the top */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Ensure it sits above other elements */
+        }
+      .navbar a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 16px;
+          transition: color 0.3s, text-decoration 0.3s;
+      }
+      .navbar a:hover {
+        background-color: white;  /* Add background color on hover */
+        color: black;             /* Change text color on hover */
+        padding: 5px 10px;        /* Optional: Adds padding to create a better visual effect */
+        border-radius: 5px;       /* Optional: Rounds the corners for a cleaner look */
+        text-decoration: none;
+      }
+      .main-title {
+          font-size: 24px;
+          font-weight: bold;
+      }
         .container {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
@@ -23,6 +54,7 @@
             border-radius: 10px;
             width: 100%;
             max-width: 1000px;
+            margin-top: 100px;
         }
         h1 {
             color: white;
@@ -30,10 +62,13 @@
         }
         /* Grid layout for images: 4 images per row */
         .images {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);  /* 4 images per row */
-            grid-gap: 10px;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            margin:2px;
+
         }
         img {
             width: 100%;
@@ -83,6 +118,15 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="main-title">My Application</div>
+        <div>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+
     <div class="container">
         <h1>Results</h1>
 
