@@ -293,7 +293,13 @@ def results(request):
         'csv_url': csv_url,
         'download_csv_url': download_csv_url
     }
-    return render(request, 'results.html', context)
+    graph_type = request.session.get('graph_type', '')
+
+    if graph_type == 'wind_rose':
+        return render(request, 'results_windrose.html', context)
+    else:
+        return render(request, 'results.html', context)
+
 
 def download_file(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT, 'csv_outputs', filename)
