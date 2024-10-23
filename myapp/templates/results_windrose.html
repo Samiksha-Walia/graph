@@ -20,28 +20,31 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(19, 19, 19, 0.7); /* Initially transparent */
+            background-color: rgba(19, 19, 19, 0.7); /* Slightly transparent */
             color: white;
             padding: 15px;
-            position: fixed;
-            top: 0;
+            position: fixed; /* Changed to fixed */
+            top: 0; /* Positioned at the top */
             left: 0;
             right: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease; 
+            z-index: 1000; /* Ensure it sits above other elements */
         }
-        .navbar:hover {
-            background-color: rgba(19, 19, 19, 0.7); 
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            transition: color 0.3s, text-decoration 0.3s;
         }
         .navbar a:hover {
-          color: white;
+          background-color: white;  /* Add background color on hover */
+          color: black;             /* Change text color on hover */
+          padding: 5px 10px;        /* Optional: Adds padding to create a better visual effect */
+          border-radius: 5px;       /* Optional: Rounds the corners for a cleaner look */
           text-decoration: none;
-          margin: 0 15px;
-          font-size: 16px;
-          transition: color 0.3s, text-decoration 0.3s;
-      }
+        }
       .main-title {
-          font-size: 24px;
+          font-size: 28px;
           font-weight: bold;
       }
         .container {
@@ -116,11 +119,13 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="main-title">My Application</div>
+        <div class="main-title">
+            <a href="/" >MeteoGraph</a>
+          </div>
         <div>
           <a href="/">Home</a>
           <a href="/about">About</a>
-          <a href="/contact">Contact</a>
+          <a href="/team">Team</a>
         </div>
       </div>
 

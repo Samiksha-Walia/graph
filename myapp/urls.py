@@ -13,6 +13,7 @@ urlpatterns = [
     path('download_image/<str:filename>/', views.download_image, name='download_image'),
     path('download_file/<str:filename>/', views.download_file, name='download_file'),
     path('about/', views.about, name='about'),
+    path('team/', views.team, name='team'),
 ]
 
 # Serve media files during development
