@@ -91,12 +91,17 @@ Then, go to `http://127.0.0.1:8000/` in your browser.
 
 > ✅ Only CSV files up to 5MB are supported. Ensure the format includes `DATE`, `TIME(UTC)`, and relevant weather columns like `TEMP(C)`, `WIND_SPEED(kt)`, and `WIND_DIR(deg)`.
 
-=
-
 ## 👨‍💻 Contributors
 
 * **Samiksha Walia** – Intern @ IMD
-  Weather data preprocessing, UI design, and full-stack Django development.
+[GitHub](https://github.com/Samiksha-Walia) • [LinkedIn](https://linkedin.com/in/samiksha-walia) 
 
+
+* **Samdisha Walia** – Intern @ IMD
+[GitHub](https://github.com/Samdisha-Walia) • [LinkedIn](https://linkedin.com/in/samdisha-walia) 
+
+
+* **Sahil Thakur** – Intern @ IMD
+[GitHub](https://github.com/sahilrajput280) • [LinkedIn](https://www.linkedin.com/in/sahil-thakur-ab8602239/) 
 
 
